@@ -16,7 +16,7 @@ const customJestConfig: Config = {
   },
   testMatch: ['<rootDir>/**/*.test.(ts|tsx)'],
 
-  collectCoverage: true, // Activa la recolección de coverage.
+  collectCoverage: true, 
   coverageProvider: 'v8',
   
   collectCoverageFrom: [ 

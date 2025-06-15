@@ -6,14 +6,32 @@ on:
       - main
 
 jobs:
-  sonarqube:
-    name: SonarQube
+
+  build-and-analyze:
+    name: Build, Test and Analyze
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+
+      - name: Checkout del código
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  
+          fetch-depth: 0 
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' 
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar pruebas con cobertura
+        run: npm run test:coverage
+
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }} 

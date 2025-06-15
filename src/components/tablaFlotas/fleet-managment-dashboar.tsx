@@ -125,6 +125,9 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export function FleetManagementDashboard() {
+  
+  console.log("SonarCloud connection test!"); 
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
