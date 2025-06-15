@@ -12,15 +12,6 @@ export function useLoginForm() {
     e.preventDefault()
     setError(null)
     try {
-    //   const path = "http://localhost:8080/api/login"
-    //   const response = await fetch(path, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ email, password }),
-    //   })
-    //   if (!response.ok) {
-    //     throw new Error("Credenciales incorrectas")
-    //   }
         if(email != "usuarioTest@gmail.com"|| password != "ABCD1234") {
             setError("Credenciales incorrectas")
             return

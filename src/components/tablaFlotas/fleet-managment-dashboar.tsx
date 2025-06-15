@@ -165,7 +165,7 @@ export function FleetManagementDashboard() {
     setCurrentVehicle(vehicle)
 
     // Encontrar el ID del conductor basado en su nombre
-    const driverId = availableDrivers.find((d) => d.name === vehicle.driver)?.id || ""
+    const driverId = availableDrivers.find((d) => d.name === vehicle.driver)?.id ?? ""
 
     // Primero cerramos el modal si estuviera abierto
     setIsModalOpen(false)
@@ -204,7 +204,7 @@ export function FleetManagementDashboard() {
   // Función para manejar el envío del formulario
   function onSubmit(data: FormValues) {
     // Encontrar el nombre del conductor seleccionado
-    const selectedDriver = availableDrivers.find((d) => d.id === data.driver)?.name || data.driver
+    const selectedDriver = availableDrivers.find((d) => d.id === data.driver)?.name ?? data.driver
 
     if (isEditing && currentVehicle) {
       // Actualizar vehículo existente
@@ -224,7 +224,7 @@ export function FleetManagementDashboard() {
       setFleetItems(updatedVehicles)
     } else {
       // Crear un nuevo vehículo
-      const newId = String(Number(fleetItems[fleetItems.length - 1]?.id || "0") + 1).padStart(3, "0")
+      const newId = String(Number(fleetItems[fleetItems.length - 1]?.id ?? "0") + 1).padStart(3, "0")
       const newVehicle: Vehicle = {
         id: newId,
         plate: data.plate.toUpperCase(),
@@ -243,8 +243,8 @@ export function FleetManagementDashboard() {
   // Filtrar datos según el término de búsqueda
   const filteredData = fleetItems.filter(
     (item) =>
-      item.plate.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.plate.toLowerCase().includes(searchTerm.toLowerCase()) ??
+      item.model.toLowerCase().includes(searchTerm.toLowerCase()) ??
       item.driver.toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
@@ -302,7 +302,7 @@ export function FleetManagementDashboard() {
                   <TableCell>{vehicle.plate}</TableCell>
                   <TableCell>{vehicle.model}</TableCell>
                   <TableCell>{vehicle.driver}</TableCell>
-                  <TableCell>{vehicle.capacity || "N/A"}</TableCell>
+                  <TableCell>{vehicle.capacity ?? "N/A"}</TableCell>
                   <TableCell>
                     <Badge variant="outline" className={`${getStatusColor(vehicle.status)} border-0`}>
                       {vehicle.status}
