@@ -1,27 +1,51 @@
-"use client"
+"use client";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, LayoutDashboard, Truck } from "lucide-react"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  ChevronLeft,
+  ChevronRight,
+  LayoutDashboard,
+  Truck,
+} from "lucide-react";
 
 interface SidebarProps {
-  open: boolean
-  setOpen: (open: boolean) => void
-  activeItem: "dashboard" | "fleet"
-  onItemClick: (item: "dashboard" | "fleet") => void
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  activeItem: "dashboard" | "fleet";
+  onItemClick: (item: "dashboard" | "fleet") => void;
 }
 
-export function Sidebar({ open, setOpen, activeItem, onItemClick }: SidebarProps) {
+export function Sidebar({
+  open,
+  setOpen,
+  activeItem,
+  onItemClick,
+}: SidebarProps) {
   return (
     <>
       {/* Overlay para móviles */}
-      {open && <div className="fixed inset-0 z-10 bg-black/50 lg:hidden" onClick={() => setOpen(false)} />}
+      {open && (
+        <div
+          className="fixed inset-0 z-10 bg-black/50 lg:hidden"
+          role="button"
+          tabIndex={0}
+          aria-label="Cerrar menú"
+          onClick={() => setOpen(false)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setOpen(false);
+            }
+          }}
+        />
+      )}
 
       {/* Sidebar */}
       <aside
         className={cn(
           "fixed inset-y-0 left-0 z-20 flex h-full w-64 flex-col bg-[#1D3557] text-white transition-transform duration-300 ease-in-out lg:static lg:translate-x-0",
-          open ? "translate-x-0" : "-translate-x-full",
+          open ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Logo y título */}
@@ -50,7 +74,7 @@ export function Sidebar({ open, setOpen, activeItem, onItemClick }: SidebarProps
               variant="ghost"
               className={cn(
                 "w-full justify-start text-white hover:bg-white/10",
-                activeItem === "dashboard" && "bg-white/10",
+                activeItem === "dashboard" && "bg-white/10"
               )}
               onClick={() => onItemClick("dashboard")}
             >
@@ -61,7 +85,7 @@ export function Sidebar({ open, setOpen, activeItem, onItemClick }: SidebarProps
               variant="ghost"
               className={cn(
                 "w-full justify-start text-white hover:bg-white/10",
-                activeItem === "fleet" && "bg-white/10",
+                activeItem === "fleet" && "bg-white/10"
               )}
               onClick={() => onItemClick("fleet")}
             >
@@ -94,5 +118,5 @@ export function Sidebar({ open, setOpen, activeItem, onItemClick }: SidebarProps
         <span className="sr-only">Abrir menú</span>
       </Button>
     </>
-  )
+  );
 }
