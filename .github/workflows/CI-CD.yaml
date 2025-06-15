@@ -4,52 +4,16 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
-
-env: 
-  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 jobs:
-  build:
+  sonarqube:
+    name: SonarQube
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install Node.js 22.x
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
         with:
-          node-version: 22.x
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build 
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install Node.js 22.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22.x
-
-      - name: Install Vercel CLI
-        run: npm install -g vercel
-
-      - name: Pull Vercel Environment Variables
-        run: vercel pull --yes --token ${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy to Vercel
-        run: vercel deploy --no-wait --token ${{ secrets.VERCEL_TOKEN }}
+          fetch-depth: 0  
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
