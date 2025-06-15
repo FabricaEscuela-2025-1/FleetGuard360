@@ -11,12 +11,27 @@ const customJestConfig: Config = {
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
 
   moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '^@/components/(.*)$': '<rootDir>/components/$1',
-    '^@/lib/(.*)$': '<rootDir>/lib/$1',
   },
   testMatch: ['<rootDir>/**/*.test.(ts|tsx)'],
-  preset: 'ts-jest',
+
+  collectCoverage: true, // Activa la recolección de coverage.
+  coverageProvider: 'v8',
+  
+  collectCoverageFrom: [ 
+    '**/*.{ts,tsx}',
+    '!**/*.d.ts',
+    '!**/node_modules/**',
+    '!<rootDir>/.next/**',
+    '!<rootDir>/*.config.js',
+    '!<rootDir>/coverage/**',
+    '!<rootDir>/jest.setup.ts',
+    '!<rootDir>/pages/_app.tsx',      
+    '!<rootDir>/pages/_document.tsx', 
+  ],
+
+  coverageReporters: ['json', 'lcov', 'text', 'clover'],
 };
 
 export default createJestConfig(customJestConfig);

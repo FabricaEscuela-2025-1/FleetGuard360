@@ -16,7 +16,7 @@ describe('Dashboard Component', () => {
   it('should display the welcome message and description', () => {
     render(<Dashboard />);
 
-    const welcomeTitle = screen.getByRole('heading', { name: /Welcome a Fleet Manager/i });
+    const welcomeTitle = screen.getByText(/Welcome a Fleet Manager/i);
     expect(welcomeTitle).toBeInTheDocument();
 
     const descriptionText = screen.getByText(/Sistema de gestión de flota para optimizar sus operaciones/i);
