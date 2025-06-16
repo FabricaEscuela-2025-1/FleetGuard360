@@ -1,3 +1,5 @@
+// Sidebar.tsx (CORREGIDO)
+
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -9,7 +11,7 @@ import {
   Truck,
 } from "lucide-react";
 
-interface SidebarProps {
+export interface SidebarProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   activeItem: "dashboard" | "fleet";
@@ -108,15 +110,24 @@ export function Sidebar({
       </aside>
 
       {/* Botón para abrir el sidebar en móviles */}
-      <Button
-        variant="outline"
-        size="icon"
-        className={cn("fixed left-4 top-4 z-30 lg:hidden", open && "hidden")}
-        onClick={() => setOpen(true)}
-      >
-        <ChevronRight className="h-5 w-5" />
-        <span className="sr-only">Abrir menú</span>
-      </Button>
+      {/* ====================================================================== */}
+      {/* ======================= INICIO DE LA CORRECCIÓN ====================== */}
+      {/* ====================================================================== */}
+      {!open && (
+        <Button
+          variant="outline"
+          size="icon"
+          // La lógica de la clase `hidden` ya no es necesaria
+          className="fixed left-4 top-4 z-30 lg:hidden" 
+          onClick={() => setOpen(true)}
+        >
+          <ChevronRight className="h-5 w-5" />
+          <span className="sr-only">Abrir menú</span>
+        </Button>
+      )}
+      {/* ====================================================================== */}
+      {/* ======================== FIN DE LA CORRECCIÓN ======================== */}
+      {/* ====================================================================== */}
     </>
   );
 }
