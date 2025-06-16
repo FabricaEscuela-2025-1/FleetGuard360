@@ -1,14 +1,12 @@
 "use client"
-
 import type React from "react"
-
 import { useState } from "react"
 import { Sidebar } from "./sidebar"
 
 interface MainLayoutProps {
-  children: React.ReactNode
-  activeView: "dashboard" | "fleet"
-  onViewChange: (view: "dashboard" | "fleet") => void
+  readonly children: React.ReactNode
+  readonly activeView: "dashboard" | "fleet"
+  readonly onViewChange: (view: "dashboard" | "fleet") => void
 }
 
 export function MainLayout({ children, activeView, onViewChange }: MainLayoutProps) {

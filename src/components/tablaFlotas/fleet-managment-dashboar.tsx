@@ -211,23 +211,11 @@ export function FleetManagementDashboard() {
     setIsDeleteDialogOpen(true);
   };
 
-  // Función para eliminar un vehículo
-  const deleteVehicle = () => {
-    if (currentVehicle) {
-      setFleetItems(fleetItems.filter((item) => item.id !== currentVehicle.id));
-      setIsDeleteDialogOpen(false);
-      setCurrentVehicle(null);
-    }
-  };
-
-  // Función para manejar el envío del formulario
   function onSubmit(data: FormValues) {
-    // Encontrar el nombre del conductor seleccionado
     const selectedDriver =
       availableDrivers.find((d) => d.id === data.driver)?.name ?? data.driver;
 
     if (isEditing && currentVehicle) {
-      // Actualizar vehículo existente
       const updatedVehicles = fleetItems.map((vehicle) => {
         if (vehicle.id === currentVehicle.id) {
           return {
@@ -243,7 +231,7 @@ export function FleetManagementDashboard() {
       });
       setFleetItems(updatedVehicles);
     } else {
-      // Crear un nuevo vehículo
+
       const newId = String(
         Number(fleetItems[fleetItems.length - 1]?.id ?? "0") + 1
       ).padStart(3, "0");
@@ -258,11 +246,9 @@ export function FleetManagementDashboard() {
       setFleetItems([...fleetItems, newVehicle]);
     }
 
-    // Cerrar el modal
     setIsModalOpen(false);
   }
 
-  // Filtrar datos según el término de búsqueda
   const filteredData = fleetItems.filter(
     (item) =>
       item.plate.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -270,7 +256,6 @@ export function FleetManagementDashboard() {
       item.driver.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Función para determinar el color del badge según el estado
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case "activo":
@@ -288,7 +273,6 @@ export function FleetManagementDashboard() {
   <div className="p-6">
     <h1 className="text-2xl font-bold text-[#1D3557] mb-6">Gestión de Flota</h1>
 
-    {/* El Diálogo ahora solo envuelve al Trigger y al Content */}
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <div className="relative w-full sm:w-64">
@@ -300,7 +284,6 @@ export function FleetManagementDashboard() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        {/* El Trigger sigue aquí, lo que es correcto */}
         <DialogTrigger asChild>
           <Button className="bg-[#457B9D] hover:bg-[#2A5A7A] w-full sm:w-auto" onClick={handleAddNew}>
             <Plus className="h-4 w-4 mr-2" /> Agregar Unidad
@@ -308,7 +291,6 @@ export function FleetManagementDashboard() {
         </DialogTrigger>
       </div>
 
-      {/* El contenido del Modal (el formulario) va aquí */}
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle className="text-[#1D3557]">
@@ -322,7 +304,7 @@ export function FleetManagementDashboard() {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            {/* ... Todo el Form y sus FormFields ... */}
+
             <FormField
               control={form.control}
               name="plate"
@@ -423,7 +405,7 @@ export function FleetManagementDashboard() {
       </DialogContent>
     </Dialog>
 
-    {/* La Tabla ahora está FUERA del Dialog, en el flujo principal de la página */}
+
     <div className="rounded-lg border bg-white overflow-hidden">
       <Table>
         <TableHeader className="bg-gray-50">
@@ -485,10 +467,8 @@ export function FleetManagementDashboard() {
       </Table>
     </div>
 
-    {/* El AlertDialog para eliminar está bien donde está */}
     <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
       <AlertDialogContent>
-        {/* ... contenido del alert dialog ... */}
       </AlertDialogContent>
     </AlertDialog>
   </div>

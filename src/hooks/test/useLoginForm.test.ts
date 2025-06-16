@@ -1,7 +1,4 @@
-// __tests__/useLoginForm.test.ts (CORREGIDO)
-
 import { renderHook, act } from "@testing-library/react"
-// Asegúrate de que esta ruta sea correcta para tu proyecto
 import { useLoginForm } from "../useLoginForm"
 import { useRouter } from "next/router"
 

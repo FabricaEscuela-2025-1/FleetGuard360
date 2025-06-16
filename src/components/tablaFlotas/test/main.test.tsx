@@ -48,7 +48,6 @@ describe("MainLayout", () => {
 
     expect(MockedSidebar).toHaveBeenCalledTimes(1)
 
-    // CORRECCIÓN: Inspeccionamos solo el primer argumento (props) del llamado.
     expect(MockedSidebar.mock.calls[0][0]).toEqual(
       expect.objectContaining({
         open: true,
@@ -65,8 +64,7 @@ describe("MainLayout", () => {
         <div>Children</div>
       </MainLayout>,
     )
-
-    // CORRECCIÓN: Inspeccionamos solo el primer argumento (props) del llamado.
+    
     expect(MockedSidebar.mock.calls[0][0]).toEqual(
       expect.objectContaining({
         activeItem: "dashboard",
